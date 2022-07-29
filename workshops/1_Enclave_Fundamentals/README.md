@@ -100,3 +100,15 @@ Perhaps the easiest way to see how an enclave can be configured and deployed is 
   
 The final step is to connect to the enclave from a computer or server. To do so, we will leverage the light-weight `oblv` cli proxy from Oblivious. 
 We have provided the [Google Collab]() from the workshop resources to step you through connecting to and interacting with an enclave. To make this as easy as possible, we've kept the public/private key pairs of two parties (Alice & Bob) as part of the workshop resources.
+ 
+For you convenience, if you are rebuilding the service yourself using the public/private keys attached, their base64 encoded strings are as follows:
+ 
+*Alice*:
+ ```
+MIIBCgKCAQEAsNooqfUM3YYBVwfoXp8zTyqdc7EAshRLQQPXeBVSie2L5BAuqnnZS9GiQmg8CiJnz5e+LVLNl9Xm+n9HO/bvWcBbMIh+LucqTgjDjenTH55pAuWMEfCcGMlZg5Kwsrwm4BMrB0oJbNGecRfLRwciIh8M8BtaUZYlrq5xFmSY0Ew1M0hPQZJx0AOwXVQMhZ5iU12JItxcK+MbWiikcpC3R3QBwdWfXkbchd33savOgHyVMcV4PNjkxLjH7d7ui5zjadWMSRvyq+EvY34ycBju+N1DGRqpiuVqU7uUiDPKRIOdC80BpgeE2tPULRlHCJIiVAakQneM2PIBAp4hR4DLrQIDAQAB
+ ```
+ 
+*Bob*:
+ ```
+MIIBCgKCAQEAwJ5+Lx51TgvQ+1vUyYpTQoSJKRyTiDN45DAeJWPk4QiCXnKmScQiOrArw2QQ2pvUyYA2NU7vScikXaZXyCjGW/HHvERWkjaPFJcWNapOjEoZsSCEJhEDle7VEYHJ3JFcH4C+HHNZ+5Z9If6yCraELN8QRjXwAe+vzHex9zsw5dhX+7CcvP59B1BpBzWFtPgJHu4gAi9SnIW1/Zi8WtdBYheZr5Vya6Sg4TptrPD5iFhfbGwCiMXcfPPY5lpi/WPynqge27GoGVcd7PTCJaYEYsHkGd+wBOiLCX6hr+Fr3nXEu6qmmMOoqAIZR45DihIhf5iVgaSBXqT/IfK21tqGjwIDAQAB
+ ```
