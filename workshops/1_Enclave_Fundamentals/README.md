@@ -59,8 +59,10 @@ sequenceDiagram;
     Client->>Client: Verify Signature
     Client->>Client: Verify PCR Codes
     Client->>Client: Verify Public Key <br/> & Extract Symmetric Key
-    Client-->>Enclave Application: Encrypted Requests using Symmetric Key
-    Enclave Application-->>Client: Encrypted Responses using Symmetric Key
+    Client-->>Enclave Proxy: Encrypted Requests using Symmetric Key
+    Enclave Proxy-->>Enclave Application: Plaintext Requests
+    Enclave Application-->>Enclave Proxy: Plaintext Responses
+    Enclave Proxy-->>Client: Encrypted Responses using Symmetric Key
 
 ```
 
