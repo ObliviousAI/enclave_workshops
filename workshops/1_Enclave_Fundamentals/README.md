@@ -18,7 +18,8 @@ In this workshop, we'll cover:
 Workshop resources:
 1. Source Code: [https://github.com/oblivious-demo/oblv-fastapi](https://github.com/oblivious-demo/oblv-fastapi)
 2. Google Collab: [to complete]
-3. YouTube Walk Through: [https://youtu.be/JEdls9tKMjk](https://youtu.be/JEdls9tKMjk)
+3. A public/private key pair for Alice & Bob: In this folder to keep the workshop timely and repeatable 🙂
+4. YouTube Walk Through: [https://youtu.be/JEdls9tKMjk](https://youtu.be/JEdls9tKMjk)
   
 ### What are secure enclaves?
   
@@ -44,12 +45,30 @@ With every PET, their is usually some burden of trust required - on the protocol
 Most enclaves are integrated with the clouds key management services by default. This is great for governance applications, but not if you would like to use the enclave to broker turst in the context of multiparty computation.
 
 To achieve this, we instead need to integrate the attestation document of the secure enclave in creating a secure connection. That is exactly what we have done with the `oblv` cli proxy. It works as follows:
+ 
+```mermaid
+sequenceDiagram;
+    participant Client
+    participant Enclave Proxy
+    participant Enclave Application
+    Client->>Enclave Proxy: Client Hello w/ Public Key
+    Enclave Proxy->>Enclave Proxy: Generate Symmetric Key
+    Enclave Proxy->>Enclave Proxy: Encrypt Key w/ Public Key <br/> & Embed in Attestation Document 
+    Enclave Proxy-->>Client: Return Attestation Document
+    Client->>Client: Verify Cert Issuer <br/> & Validate Cert
+    Client->>Client: Verify Signature
+    Client->>Client: Verify PCR Codes
+    Client->>Client: Verify Public Key <br/> & Extract Symmetric Key
+    Client-->>Enclave Application: Encrypted Requests using Symmetric Key
+    Enclave Application-->>Client: Encrypted Responses using Symmetric Key
 
-![](https://docs.oblivious.ai/assets/images/key_exchange-d081637e3a9ff3a0310aaf3361db0048.jpg)
+```
 
 In the above handshake, the user authenticates themselves with a public key which was placed into the enclave at build time. The enclave creates a unique session symetric key for AES encryption for each connection made. This is inturn encrypted with the public key recieved and embedded as an additional arguemtn into the attestation document signed by the physical infrastructure. This document is returned to the client proxy, which allows the client to validate the enclave is running the intended source coude (confirming the PCR hashes), that the cert chain is valid and has not expired, that it is indeed the cloud provider who has signed the attestation document and of course that they can extract the symetric key returned.
 
-Once the client and the enclave have established a shared encryption key, the payload and path parameters of the enclave are encrypted and decrypted from the client to the enclave. This means you can send data without trusting the account holder who is hosting the secure enclave as the keys were generated inside the enclave itself.
+Once the client and the enclave have established a shared encryption key, the payload and path parameters of the enclave are encrypted and decrypted from the client to the enclave. This means you can send data without trusting the account holder who is hosting the secure enclave as the keys were generated inside the enclave itself. 
+ 
+⚠️ **Note**: *Another option would be to run TLS PSK (pre-shared keys) instead of payload encryption. However, in doing so you become limitted in terms of the web application firewalls (WAF) you can use and you maybe subjected to DOS attacks of various forms.*
 
 ```mermaid
 graph TD;
@@ -75,9 +94,9 @@ This repository uses Pythons FastAPI framework to demonstrates:
 
 Perhaps the easiest way to see how an enclave can be configured and deployed is by watching an example. The YouTube walk through from the workshop resources does just this. Tap the video below to skip to the point where we configure and lauch the enclave service:
  
- [![Watch the full overview here.](https://img.youtube.com/vi/JEdls9tKMjk/0.jpg)](https://www.youtube.com/watch?v=JEdls9tKMjk?t=2126)
+[![Watch the full overview here.](https://img.youtube.com/vi/JEdls9tKMjk/0.jpg)](https://youtu.be/JEdls9tKMjk?t=2126)
   
 ### How can we securely connect to an enclave?
   
 The final step is to connect to the enclave from a computer or server. To do so, we will leverage the light-weight `oblv` cli proxy from Oblivious. 
-We have provided the [Google Collab]() from the workshop resources to step you through connecting to and interacting with an enclave. 
+We have provided the [Google Collab]() from the workshop resources to step you through connecting to and interacting with an enclave. To make this as easy as possible, we've kept the public/private key pairs of two parties (Alice & Bob) as part of the workshop resources.
