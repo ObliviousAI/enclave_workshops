@@ -69,14 +69,15 @@ This repository uses Pythons FastAPI framework to demonstrates:
   * How to manage access control.
   * How to allowlist outbound connections.
   * How to make enclaves configureable (without effecting their attestation).
-  
-[to complete]
+  * Writing unit tests locally.
   
 ### How do we configure and deploy a secure enclave?
 
-[to complete]
+Perhaps the easiest way to see how an enclave can be configured and deployed is by watching an example. The YouTube walk through from the workshop resources does just this. Tap the video below to skip to the point where we configure and lauch the enclave service:
+ 
+ [![Watch the full overview here.](https://img.youtube.com/vi/JEdls9tKMjk/0.jpg)](https://www.youtube.com/watch?v=JEdls9tKMjk?t=2126)
   
 ### How can we securely connect to an enclave?
   
 The final step is to connect to the enclave from a computer or server. To do so, we will leverage the light-weight `oblv` cli proxy from Oblivious. 
-How this works is [to complete]
+We have provided the [Google Collab]() from the workshop resources to step you through connecting to and interacting with an enclave. 
