@@ -17,7 +17,7 @@ In this workshop, we'll cover:
   
 Workshop resources:
 1. Source Code: [https://github.com/oblivious-demo/oblv-fastapi](https://github.com/oblivious-demo/oblv-fastapi)
-2. Google Collab: [to complete]
+2. Google Collab: [![](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ObliviousAI/enclave_workshops/blob/master/workshops/1_Enclave_Fundamentals/Workshop_1_Enclave_Fundamentals.ipynb)
 3. A public/private key pair for Alice & Bob: In this folder to keep the workshop timely and repeatable 🙂
 4. YouTube Walk Through: [https://youtu.be/JEdls9tKMjk](https://youtu.be/JEdls9tKMjk)
   
@@ -99,7 +99,7 @@ Perhaps the easiest way to see how an enclave can be configured and deployed is 
 ### How can we securely connect to an enclave?
   
 The final step is to connect to the enclave from a computer or server. To do so, we will leverage the light-weight `oblv` cli proxy from Oblivious. 
-We have provided the [Google Collab]() from the workshop resources to step you through connecting to and interacting with an enclave. To make this as easy as possible, we've kept the public/private key pairs of two parties (Alice & Bob) as part of the workshop resources.
+We have provided the [![](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ObliviousAI/enclave_workshops/blob/master/workshops/1_Enclave_Fundamentals/Workshop_1_Enclave_Fundamentals.ipynb) from the workshop resources to step you through connecting to and interacting with an enclave. To make this as easy as possible, we've kept the public/private key pairs of two parties (Alice & Bob) as part of the workshop resources.
  
 For you convenience, if you are rebuilding the service yourself using the public/private keys attached, their base64 encoded strings are as follows:
  
