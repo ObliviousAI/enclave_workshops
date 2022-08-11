@@ -35,9 +35,9 @@ In this workshop, we'll cover:
 1. What are secure enclaves?
 2. What types of enclaves are there? ( and a brief history of the domain)
 3. How do we write software to deploy to an enclave?
-  a. How to manage access control.
-  b. How to allowlist outbound connections.
-  c. How to make enclaves configureable.
+  * How to manage access control.
+  * How to allowlist outbound connections.
+  * How to make enclaves configureable.
 4. How do we configure and deploy a secure enclave?
 5. How can we securely connect to an enclave?
 
