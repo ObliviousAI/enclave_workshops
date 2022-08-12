@@ -143,7 +143,7 @@ With a single role, let’s call it `data_provider` and fixed cardinality os `2`
 ### How can we securely connect to an enclave?
   
 The final step is to connect to the enclave from a computer or server. To do so, we will leverage the light-weight `oblv` cli proxy from Oblivious. 
-We have provided the [![](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ObliviousAI/enclave_workshops/blob/master/workshops/1_Enclave_Fundamentals/Workshop_1_Enclave_Fundamentals.ipynb) from the workshop resources to step you through connecting to and interacting with an enclave. To make this as easy as possible, we have kept the public/private key pairs of two parties (Alice & Bob) as part of the workshop resources.
+We have provided the [![](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ObliviousAI/enclave_workshops/blob/master/workshops/2_Synthetic_Data_from_Multiple_Private_Data_Sources/Workshop_2_Synthetic_Data_from_Multiple_Private_Data_Sources.ipynb) from the workshop resources to step you through connecting to and interacting with an enclave. To make this as easy as possible, we have kept the public/private key pairs of two parties (Alice & Bob) as part of the workshop resources.
  
 For your convenience, if you are rebuilding the service yourself using the public/private keys attached, their base64 encoded strings are as follows:
  
