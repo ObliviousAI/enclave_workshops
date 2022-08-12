@@ -123,7 +123,7 @@ The last point worth weighing on is reusability. If we would like to run this as
 
 #### A Practical Implementation 
 
-We have an example end-to-end application in the demo account [here]().
+We have an example end-to-end application in the demo account [here](https://github.com/oblivious-demo/oblv-smartnoise).
 
 ### How do we configure and deploy a secure enclave?
 
