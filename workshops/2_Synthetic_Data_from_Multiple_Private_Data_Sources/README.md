@@ -36,11 +36,11 @@ We can leverage secure enclaves to broker trust between multiple parties by guar
   
 ### What is Differential Privacy? 
   
-While the focus of this workshop is on synthetic data, their are different approaches to create synthetic data. The only approach which gives a theoretical privacy gaurentee is called Differentially Private (DP) synthetic data.
+While the focus of this workshop is on synthetic data, there are different approaches to create synthetic data. The only approach which gives a theoretical privacy gaurentee is called Differentially Private (DP) synthetic data.
   
-Differential privacy, coined in [2006 by Cynthia Dwork, Frank McSherry, Kobbi Nissim and Adam D. Smith](https://link.springer.com/chapter/10.1007/11681878_14), is a theoretical statement about the geussing probability of data being present in a dataset given stochastic measurements/queries of the dataset (intuitively: any information gained that is derived from the dataset). Some processes may naturally create stochastic measurements however in most cases callibrated noise is intensionally applied to a result of a measurement such that the measurement will be differentially private. 
+Differential privacy, coined in [2006 by Cynthia Dwork, Frank McSherry, Kobbi Nissim and Adam D. Smith](https://link.springer.com/chapter/10.1007/11681878_14), is a theoretical statement about the guessing probability of data being present in a dataset given stochastic measurements/queries of the dataset (intuitively: any information gained that is derived from the dataset). Some processes may naturally create stochastic measurements however in most cases callibrated noise is intentionally applied to a result of a measurement such that the measurement will be differentially private. 
   
-This framework of privacy ultimately relies on what you want the geussing probability to be and there is a natural tradeoof between accuracy of a measurement and the geussing probability. Strictly speaking this geussing probability is parameterized by a coefficient ε. If ε is 0, measurement discloses no information about the data being in the dataset and so the geussing probability is uniform (50:50). If ε is infinite, than the measurement discloses with absolute certainty whether the data is present or not in the dataset.
+This framework of privacy ultimately relies on what you want the guessing probability to be and there is a natural trade-off between accuracy of a measurement and the guessing probability. Strictly speaking this guessing probability is parameterized by a coefficient ε. If ε is 0, measurement discloses no information about the data being in the dataset and so the guessing probability is uniform (50:50). If ε is infinite, than the measurement discloses with absolute certainty whether the data is present or not in the dataset.
 
 $$ \epsilon \geq \ln \left( \frac{Pr[M(x) \in S]}{Pr[M(x') \in S]} \right) $$
   
@@ -60,7 +60,7 @@ graph LR
   
 ### What is Synthetic Data?
 
-Synthetic Data (SD) is a broad set of approaches to taking a dataset and learning about its structure, such that new fake data can be created which appears similar to the original but which do not hold any of the original samples.
+Synthetic Data (SD) is a broad set of approaches to taking a dataset and learning about its structure, such that new fake data can be created which appears similar to the original but which does not hold any of the original samples.
 
 These approaches are classified as unsupervised machine learning models as they endeavour to model the input distribution of the data.
 
@@ -78,13 +78,13 @@ The big challenge here is around what modelling assumptions and constraints to u
 
 Nevertheless, DP SD can be extremely useful in sharing a non-sensitive dataset for the purpose of planning experiments, testing systems (prior to using production systems), gaining intuition and more. 
 
-The challenge is that if 2 or more parties create synthetic data in isolation from one another, the model has no way to maintain any interactions between the data of each party. Imagine, for instance, one party had a list of ids and ages, and the second party had a list of ids and salaries. Well, if each party created synthetic data individually, we could generate realistic-looking ages and realistic salaries, but the relationships between salary and age would necessarily be lost before any future analysis could be performed.
+The challenge is that if 2 or more parties create synthetic data in isolation from one another, the model has no way to maintain any interactions between the data of each party. Imagine, for instance, one party had a list of IDs and ages, and the second party had a list of IDs and salaries. Well, if each party created synthetic data individually, we could generate realistic-looking ages and realistic salaries, but the relationships between salary and age would necessarily be lost before any future analysis could be performed.
 
 The enclave endeavours to solve this challenge by creating a secure and isolated environment where both parties can upload their data, and a join can be performed within the enclave prior to synthetic data generation.
 
 > :warning: **Synthetic Data**: Be careful not to make decisions based purely on synthetic data. GAN-based SD models have a tendency to miss modes, that is to say, that the data sampled looks real at an individual level, but when looking at a macro level, small clusters (potentially minorities) may be lost. For Copula-based SD, only marginal distributions of the data are used and similarly, some non-linear correlations may be lost. If anyone tells you they have solved this without a major loss in performance (eg Bayesian NN or equivalent), you’d expect them to have won an ICLR/NeurIPS/ICCV/etc paper of the year or something along those lines, as it would be a *big* contribution to the field.
 
-> :bulb: **Sensitivity & Sensitive Data**:  Remember we spoke of guessing probabilities earlier? Well, our SD model typically won’t know how many times a record will appear after the join (ie if id=1 were to turn up multiple times, revealing more about record 1 than intended). This is often referred to as the “sensitivity” of the data, and we could use entity-based DP, but for simplicity, we will ignore this for now. As such, we will perform an inner join and confirm all ids are unique prior to joining the data together as a sanity check. 
+> :bulb: **Sensitivity & Sensitive Data**:  Remember we spoke of guessing probabilities earlier? Well, our SD model typically won’t know how many times a record will appear after the join (ie if id=1 were to turn up multiple times, revealing more about record 1 than intended). This is often referred to as the “sensitivity” of the data, and we could use entity-based DP, but for simplicity, we will ignore this for now. As such, we will perform an inner join and confirm all IDs are unique prior to joining the data together as a sanity check. 
 
 ### Putting it all together:
 
@@ -140,9 +140,9 @@ With a single role, let’s call it `data_provider` and fixed cardinality os `2`
 ### How can we securely connect to an enclave?
   
 The final step is to connect to the enclave from a computer or server. To do so, we will leverage the light-weight `oblv` cli proxy from Oblivious. 
-We have provided the [![](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ObliviousAI/enclave_workshops/blob/master/workshops/1_Enclave_Fundamentals/Workshop_1_Enclave_Fundamentals.ipynb) from the workshop resources to step you through connecting to and interacting with an enclave. To make this as easy as possible, we've kept the public/private key pairs of two parties (Alice & Bob) as part of the workshop resources.
+We have provided the [![](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ObliviousAI/enclave_workshops/blob/master/workshops/1_Enclave_Fundamentals/Workshop_1_Enclave_Fundamentals.ipynb) from the workshop resources to step you through connecting to and interacting with an enclave. To make this as easy as possible, we have kept the public/private key pairs of two parties (Alice & Bob) as part of the workshop resources.
  
-For you convenience, if you are rebuilding the service yourself using the public/private keys attached, their base64 encoded strings are as follows:
+For your convenience, if you are rebuilding the service yourself using the public/private keys attached, their base64 encoded strings are as follows:
  
 *Alice*:
  ```
