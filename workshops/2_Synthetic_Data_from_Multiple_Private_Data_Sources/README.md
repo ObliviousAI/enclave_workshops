@@ -127,12 +127,15 @@ We have an example end-to-end application in the demo account [here]().
 
 ### How do we configure and deploy a secure enclave?
 
-This will follow the same steps as [Workshop 1](../1_Enclave_Fundamentals/README.md) but update the paths to be simple
+This will follow the same steps as [Workshop 1](../1_Enclave_Fundamentals/README.md) but update the paths to be simply:
 
 ```
-GET /config
-POST /upload_csv
-GET /generate
+POST /upload_data
+GET /confirm_data
+GET /formats
+GET /samples
+GET /details
+GET /model_status
 ```
   
 With a single role, let’s call it `data_provider` and fixed cardinality os `2`.  No outbound calls or build args are required.
