@@ -21,7 +21,7 @@ Workshop resources:
 1. Source Code: [https://github.com/oblivious-demo/oblv-smartnoise-synth](https://github.com/oblivious-demo/oblv-smartnoise-synth)
 2. Google Collab: [![](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ObliviousAI/enclave_workshops/blob/master/workshops/2_Synthetic_Data_from_Multiple_Private_Data_Sources/Workshop_2_Synthetic_Data_from_Multiple_Private_Data_Sources.ipynb)
 3. A public/private key pair for Alice & Bob: In this folder to keep the workshop timely and repeatable 🙂
-4. YouTube Walk Through: [https://youtu.be/...](https://youtu.be/...)
+4. YouTube Walk Through: (coming soon :raised_hands:)
   
 ### What are secure enclaves? (Recap from [Workshop 1](../1_Enclave_Fundamentals/README.md))
   
