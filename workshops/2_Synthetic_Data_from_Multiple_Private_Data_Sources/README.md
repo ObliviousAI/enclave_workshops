@@ -19,7 +19,7 @@ In this workshop, we'll cover:
   
 Workshop resources:
 1. Source Code: [https://github.com/oblivious-demo/oblv-smartnoise-synth](https://github.com/oblivious-demo/oblv-smartnoise-synth)
-2. Google Collab: [![](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ObliviousAI/enclave_workshops/blob/master/workshops/2_Synthetic_Data_from_Multiple_Private_Data_Sources/Workshop_2_Synthetic_Data_from_Multiple_Private_Data_Sources.ipynb)
+2. Google Colab: [![](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ObliviousAI/enclave_workshops/blob/master/workshops/2_Synthetic_Data_from_Multiple_Private_Data_Sources/Workshop_2_Synthetic_Data_from_Multiple_Private_Data_Sources.ipynb)
 3. A public/private key pair for Alice & Bob: In this folder to keep the workshop timely and repeatable 🙂
 4. YouTube Walk Through: (coming soon :raised_hands:)
   
@@ -27,26 +27,26 @@ Workshop resources:
   
 Secure enclaves are isolated servers with two very powerful properties:
 
-- They have extremely limited IO and need explicit inbound and outbound connections to receive and send data. No one can simply SSH into an enclave and see data as it is being processed, nor can data end up unexpectedly in log files. 
-- The underlying infrastructure "attests" what is running inside. So when we write some software to deploy into an enclave, the physical infrastructure will hash the software and environment and place these values into a document that it digitally signs. In short, the cloud infrastructure implicitly guarantees to those connecting to the enclave the exact processing and behaviour of what is running inside the enclave.
+- They have extremely limited IO and need explicit inbound and outbound connections to receive and send data. No one can SSH into an enclave and see data as it is being processed, nor can data end up unexpectedly in log files. 
+- The underlying infrastructure "attests" what is running inside. So when we write some software to deploy into an enclave, the physical infrastructure will hash the software and environment and place these values into a digitally signed document. In short, the cloud infrastructure implicitly guarantees to those connecting to the enclave the exact processing and behaviour of what is running inside the enclave.
 
-This is extremely powerful as we can use these characteristics to clearly structure rules around what processes can decrypt what data (not what servers or people - what actual computation is approved!). As you can imagine, all of the major cloud providers have developed an enclave offering of one form or another (AWS, Azure, GPC, Alibaba Cloud, IBM, Oracle, OVH Cloud.... the list goes on) over the past few years and billions worth of investments have been poured into the domain.
+This is extremely powerful as we can use these characteristics to clearly structure rules around what processes can decrypt data (not what servers or people - what actual computation is approved!). As you can imagine, all of the major cloud providers have developed an enclave offering of one form or another (AWS, Azure, GPC, Alibaba Cloud, IBM, Oracle, OVH Cloud.... the list goes on) over the past few years and billions worth of investments have been poured into the domain.
   
 We can leverage secure enclaves to broker trust between multiple parties by guaranteeing what process will be applied to their respective sensitive data and the controls in place to protect the confidentiality of their data throughout its life cycle.
   
 ### What is Differential Privacy? 
   
-While the focus of this workshop is on synthetic data, there are different approaches to create synthetic data. The only approach which gives a theoretical privacy gaurentee is called Differentially Private (DP) synthetic data.
+While this workshop focuses on synthetic data, there are different approaches to creating synthetic data. The only method which gives a theoretical privacy guarantee is called Differentially Private (DP) synthetic data.
   
-Differential privacy, coined in [2006 by Cynthia Dwork, Frank McSherry, Kobbi Nissim and Adam D. Smith](https://link.springer.com/chapter/10.1007/11681878_14), is a theoretical statement about the guessing probability of data being present in a dataset given stochastic measurements/queries of the dataset (intuitively: any information gained that is derived from the dataset). Some processes may naturally create stochastic measurements however in most cases callibrated noise is intentionally applied to a result of a measurement such that the measurement will be differentially private. 
+Differential privacy, coined in [2006 by Cynthia Dwork, Frank McSherry, Kobbi Nissim and Adam D. Smith](https://link.springer.com/chapter/10.1007/11681878_14), is a theoretical statement about the guessing probability of data being present in a dataset given stochastic measurements/queries of the dataset (intuitively: any information gained that is derived from the dataset). Some processes may naturally create stochastic measurements; however, in most cases, calibrated noise is intentionally applied to a result of measurement such that the measurement will be differentially private. 
   
-This framework of privacy ultimately relies on what you want the guessing probability to be and there is a natural trade-off between accuracy of a measurement and the guessing probability. Strictly speaking this guessing probability is parameterized by a coefficient ε. If ε is 0, measurement discloses no information about the data being in the dataset and so the guessing probability is uniform (50:50). If ε is infinite, than the measurement discloses with absolute certainty whether the data is present or not in the dataset.
+This privacy framework ultimately relies on what you want the guessing probability to be, and there is a natural trade-off between the accuracy of a measurement and the guessing probability. Strictly speaking, this guessing probability is parameterised by a coefficient ε. If ε is 0, the measurement discloses no information about the data being in the dataset, so the guessing probability is uniform (50:50). If ε is infinite, then the measurement discloses with absolute certainty whether the data is present or not in the dataset.
 
 $$ \epsilon \geq \ln \left( \frac{Pr[M(x) \in S]}{Pr[M(x') \in S]} \right) $$
   
-There is no golden rule in how you select an acceptable ε which you can deem "safe" and you will likely need to decide internally what you believe to be acceptable risk.
+There is no golden rule in selecting an acceptable ε which you can deem "safe”, and you will likely need to decide internally what you believe to be a reasonable risk.
   
-As a final note, the ε of multiple measurements/queries can interact in complicated ways. However, it is very easy to upper bound the worst case ε by the sum of all of the ε: $\epsilon = \sum_{i=0}^{n} \epsilon_i$
+Finally, the ε of multiple measurements/queries can interact in complicated ways. However, it is straightforward to upper bound the worst case ε by the sum of all of the ε: $\epsilon = \sum_{i=0}^{n} \epsilon_i$
   
 ```mermaid
 graph LR
@@ -60,7 +60,7 @@ graph LR
   
 ### What is Synthetic Data?
 
-Synthetic Data (SD) is a broad set of approaches to taking a dataset and learning about its structure, such that new fake data can be created which appears similar to the original but which does not hold any of the original samples.
+Synthetic Data (SD) is a broad set of approaches to taking a dataset and learning about its structure. New fake data that appears similar to the original can be created but does not hold any actual samples.
 
 These approaches are classified as unsupervised machine learning models as they endeavour to model the input distribution of the data.
 
@@ -74,30 +74,30 @@ graph LR
 
 ```
   
-The big challenge here is around what modelling assumptions and constraints to use. Unfortunately, this information is not captured when samples are drawn, so we don’t know how realistic the samples drawn are, and no meaningful guarantees can be made about the conclusions drawn from them.
+The big challenge here is around what modelling assumptions and constraints to use. Unfortunately, this information is not captured when samples are drawn, so we don’t know how realistic the samples drawn are, and no meaningful guarantees can be made about their conclusions.
 
-Nevertheless, DP SD can be extremely useful in sharing a non-sensitive dataset for the purpose of planning experiments, testing systems (prior to using production systems), gaining intuition and more. 
+Nevertheless, DP SD can be extremely useful in sharing a non-sensitive dataset to plan experiments, testing systems (prior to using production systems), gaining intuition and more. 
 
-The challenge is that if 2 or more parties create synthetic data in isolation from one another, the model has no way to maintain any interactions between the data of each party. Imagine, for instance, one party had a list of IDs and ages, and the second party had a list of IDs and salaries. Well, if each party created synthetic data individually, we could generate realistic-looking ages and realistic salaries, but the relationships between salary and age would necessarily be lost before any future analysis could be performed.
+The challenge is that if two or more parties create synthetic data in isolation from one another, the model has no way to maintain any interactions between the data of each party. For instance, one party had a list of IDs and ages, and the second party had a list of IDs and salaries. If each party created synthetic data individually, we could generate realistic-looking ages and realistic salaries. Still, the relationships between wage and age would be lost before any future analysis could be performed.
 
-The enclave endeavours to solve this challenge by creating a secure and isolated environment where both parties can upload their data, and a join can be performed within the enclave prior to synthetic data generation.
+The enclave endeavours to solve this challenge by creating a secure and isolated environment where both parties can upload their data. A join can be performed within the enclave before synthetic data generation.
 
-> :warning: **Synthetic Data**: Be careful not to make decisions based purely on synthetic data. GAN-based SD models have a tendency to miss modes, that is to say, that the data sampled looks real at an individual level, but when looking at a macro level, small clusters (potentially minorities) may be lost. For Copula-based SD, only marginal distributions of the data are used and similarly, some non-linear correlations may be lost. If anyone tells you they have solved this without a major loss in performance (eg Bayesian NN or equivalent), you’d expect them to have won an ICLR/NeurIPS/ICCV/etc paper of the year or something along those lines, as it would be a *big* contribution to the field.
+> :warning: **Synthetic Data**: Be careful not to make decisions based purely on synthetic data. GAN-based SD models tend to miss modes, that is, that the data sampled looks real at an individual level, but small clusters (potentially minorities) may be lost when looking at a macro level. For Copula-based SD, only marginal distributions of the data are used; similarly, some non-linear correlations may be lost. If anyone tells you they have solved this without a significant loss in performance (e.g. Bayesian NN or equivalent), you’d expect them to have won an ICLR/NeurIPS/ICCV/etc. paper of the year or something along those lines, as it would be a *significant* contribution to the field.
 
-> :bulb: **Sensitivity & Sensitive Data**:  Remember we spoke of guessing probabilities earlier? Well, our SD model typically won’t know how many times a record will appear after the join (ie if id=1 were to turn up multiple times, revealing more about record 1 than intended). This is often referred to as the “sensitivity” of the data, and we could use entity-based DP, but for simplicity, we will ignore this for now. As such, we will perform an inner join and confirm all IDs are unique prior to joining the data together as a sanity check. 
+> :bulb: **Sensitivity & Sensitive Data**:  Remember we spoke of guessing probabilities earlier? Well, our SD model typically won’t know how many times a record will appear after the join (i.e. if id=1 were to turn up multiple times, revealing more about record one than intended). This is often referred to as the “sensitivity” of the data, and we could use entity-based DP, but for simplicity, we will ignore this for now. As such, we will perform an inner join and confirm all IDs are unique before joining the data together as a sanity check. 
 
 ### Putting it all together:
 
 #### Basic functionality of the enclave
 ```mermaid
 sequenceDiagram
-    Note over Alice: Accept PCRs of enclave
-    Alice->>Enclave: Let me see your configuration?
+    Note over Alice: Accept PCRs of the enclave
+    Alice->>Enclave: Let me see your configuration.
     Enclave->>Alice: Some model, some params, some ε
     Note over Alice: Accept the configuration
     Alice->>Enclave: Upload CSV file
-    Note over Bob: Accept PCRs of enclave
-    Bob->>Enclave: Let me see your configuration?
+    Note over Bob: Accept PCRs of the enclave
+    Bob->>Enclave: Let me see your configuration.
     Enclave->>Bob: Some model, some params, some ε
     Note over Bob: Accept the configuration
     Bob->>Enclave: Upload CSV file
@@ -110,16 +110,16 @@ sequenceDiagram
  
 #### Caveats & Validators
 
-There are essentially 3 levels of security applied in the system:
-- The first is the load balancer and web application firewall. This will block things like connections coming from proxies, botnets, filters based on payload size, rate limiters, etc. Usually fairly simple rules; however, this is an important part of OWASP and other frameworks to prevent DOS attacks and other malicious brute-force attacks.
+There are essentially three levels of security applied in the system:
+- The first is the load balancer and web application firewall. This will block connections from proxies, botnets, filters based on payload size, rate limiters, etc. Usually pretty simple rules; however, this is an essential part of OWASP and other frameworks to prevent DOS attacks and other malicious brute-force attacks.
 - The proxy runs inside the enclave, which manages user connections according to access control lists. It encrypts and decrypts traffic entering and leaving the enclave based on keys established through the attestation-based initial handshake.
-- Application-based logic. The actual logic of how data is consumed is down to the designer of the MPC system. If you create an API handle that just hands all the sensitive data to whoever calls it, then the application won’t be particularly secure.  We will discuss more advanced protections you may want to consider in future, but they all follow standard secure coding practices. 
+- Application-based logic. The actual reason for how data is consumed is down to the designer of the MPC system. The application won’t be particularly secure if you create an API handle that hands all the sensitive data to whoever calls it.  We will discuss more advanced protections you may want to consider in future, but they all follow standard secure coding practices. 
 
-Of course, if you would like to be even more secure, you may want the enclave and clients to be connecting over a strict VPN or equivalent. 
+Of course, if you want to be even more secure, you may want the enclave and clients to connect over a strict VPN or equivalent. 
 
 #### Reusability
 
-The last point worth weighing on is reusability. If we would like to run this as an allow-listed service in your infrastructure, you may want to build it with configurations stored in the `/usr/runtime.yaml`. For example, selecting the specific Smartnoise SynthData model, the parameters, the epsilon, etc. This is, of course, up to you, but it may make future reuse less painful from an administration perspective.
+The last point worth weighing on is reusability. If we would like to run this as an allow-listed service in your infrastructure, you may want to build it with configurations stored in the `/usr/runtime.yaml`. For example, selecting the specific Smartnoise SynthData model, the parameters, the epsilon, etc. This is up to you, but it may make future reuse less painful from an administration perspective.
 
 #### A Practical Implementation 
 
@@ -127,7 +127,7 @@ We have an example end-to-end application in the demo account [here](https://git
 
 ### How do we configure and deploy a secure enclave?
 
-This will follow the same steps as [Workshop 1](../1_Enclave_Fundamentals/README.md) but update the paths to be simply:
+This will follow the same steps as [Workshop 1](../1_Enclave_Fundamentals/README.md) but update the paths to be:
 
 ```
 POST /upload_data
@@ -142,7 +142,7 @@ With a single role, let’s call it `data_provider` and fixed cardinality os `2`
 
 ### How can we securely connect to an enclave?
   
-The final step is to connect to the enclave from a computer or server. To do so, we will leverage the light-weight `oblv` cli proxy from Oblivious. 
+The final step is to connect to the enclave from a computer or server. We will leverage Oblivious’s lightweight `oblv` cli proxy to do so. 
 We have provided the [![](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ObliviousAI/enclave_workshops/blob/master/workshops/2_Synthetic_Data_from_Multiple_Private_Data_Sources/Workshop_2_Synthetic_Data_from_Multiple_Private_Data_Sources.ipynb) from the workshop resources to step you through connecting to and interacting with an enclave. To make this as easy as possible, we have kept the public/private key pairs of two parties (Alice & Bob) as part of the workshop resources.
  
 For your convenience, if you are rebuilding the service yourself using the public/private keys attached, their base64 encoded strings are as follows:
